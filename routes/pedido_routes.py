@@ -1,0 +1,39 @@
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from config.database import get_db
+from schemas.pedido_schema import CrearPedidoRequest, ActualizarEstadoRequest
+from controllers.pedido_controller import (
+    crear_pedido_controller,
+    pedidos_cliente_controller,
+    pedido_detalle_controller,
+    pedidos_repartidor_controller,
+    actualizar_estado_controller
+)
+
+router = APIRouter()
+
+@router.post("/pedidos")
+def crear_pedido(request: CrearPedidoRequest, db: Session = Depends(get_db)):
+    return crear_pedido_controller(db, request)
+
+
+@router.get("/pedidos/cliente/{clienteId}")
+def pedidos_cliente(clienteId: int, db: Session = Depends(get_db)):
+    return pedidos_cliente_controller(db, clienteId)
+
+
+@router.get("/pedidos/{pedidoId}")
+def pedido_detalle(pedidoId: int, db: Session = Depends(get_db)):
+    return pedido_detalle_controller(db, pedidoId)
+
+@router.get("/pedidos/repartidor/{repartidorId}")
+def pedidos_repartidor(repartidorId: int, db: Session = Depends(get_db)):
+    return pedidos_repartidor_controller(db, repartidorId)
+
+@router.patch("/pedidos/{pedidoId}/estado")
+def actualizar_estado(
+    pedidoId: int,
+    body: ActualizarEstadoRequest,
+    db: Session = Depends(get_db)
+):
+    return actualizar_estado_controller(db, pedidoId, body)
