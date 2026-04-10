@@ -31,6 +31,8 @@ def obtener_pedidos_cliente(db: Session, cliente_id: int):
         Pedido.cliente_id == cliente_id
     ).order_by(Pedido.created_at.desc()).all()
 
+def obtener_pedidos(db: Session):
+    return db.query(Pedido).order_by(Pedido.created_at.desc()).all()
 
 def obtener_pedido(db: Session, pedido_id: int):
 
