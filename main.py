@@ -6,9 +6,15 @@ from routes.pedido_routes import router as pedido_router
 from routes.ubicacion_routes import router as ubicacion_router
 from routes.ruta_routes import router as ruta_router
 from routes.detalle_pedido_routes import router as detalle_pedido_routes
+from config.firebase_config import init_firebase
+from contextlib import asynccontextmanager
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_firebase()
+    yield
 
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
 app.include_router(auth_router)
 app.include_router(producto_router)

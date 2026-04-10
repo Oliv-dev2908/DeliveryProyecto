@@ -12,3 +12,5 @@ class User(Base):
     password_hash = Column(String)
     rol = Column(String)
     activo = Column(SmallInteger)
+    #NUEVA ADICION (2:46AM)
+    fcm_token = Column(String, nullable=True)

@@ -2,6 +2,8 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from config.database import get_db
 from schemas.pedido_schema import CrearPedidoRequest, ActualizarEstadoRequest
+from services.notification_service import NotificationService
+from models.user_model import User
 from controllers.pedido_controller import (
     crear_pedido_controller,
     pedidos_cliente_controller,
