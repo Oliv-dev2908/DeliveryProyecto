@@ -9,8 +9,10 @@ from services.pedido_service import (
     obtener_pedidos_repartidor,
     actualizar_estado_pedido,
     obtener_pedidos_sin_repartidor,
-    asignar_repartidor
+    asignar_repartidor,
+    obtener_pedidos
 )
+
  
 def crear_pedido_controller(db: Session, request):
     pedido = crear_pedido(db, request)
@@ -76,6 +78,12 @@ def asignar_repartidor_controller(db: Session, pedido_id, body):
         "data": pedido
     }
  
+def pedidos_controller(db):
+    pedidos = obtener_pedidos(db)
+    return {
+        "success": True,
+        "data": pedidos
+    }
  
 def pedidos_cliente_controller(db: Session, cliente_id):
     pedidos = obtener_pedidos_cliente(db, cliente_id)
@@ -95,4 +103,3 @@ def pedidos_sin_repartidor_controller(db):
         "success": True,
         "data": pedidos
     }
- 
