@@ -25,3 +25,6 @@ class PedidoResponse(BaseModel):
 
 class ActualizarEstadoRequest(BaseModel):
     estado: str
+
+class AsignarRepartidorRequest(BaseModel):
+    repartidor_id: int

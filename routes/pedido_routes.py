@@ -7,8 +7,11 @@ from controllers.pedido_controller import (
     pedidos_cliente_controller,
     pedido_detalle_controller,
     pedidos_repartidor_controller,
-    actualizar_estado_controller
+    actualizar_estado_controller,
+    pedidos_sin_repartidor_controller,
+    asignar_repartidor_controller
 )
+from schemas.pedido_schema import AsignarRepartidorRequest
 
 router = APIRouter()
 
@@ -21,6 +24,9 @@ def crear_pedido(request: CrearPedidoRequest, db: Session = Depends(get_db)):
 def pedidos_cliente(clienteId: int, db: Session = Depends(get_db)):
     return pedidos_cliente_controller(db, clienteId)
 
+@router.get("/pedidos/sin-repartidor")
+def pedidos_sin_repartidor(db: Session = Depends(get_db)):
+    return pedidos_sin_repartidor_controller(db)
 
 @router.get("/pedidos/{pedidoId}")
 def pedido_detalle(pedidoId: int, db: Session = Depends(get_db)):
@@ -37,3 +43,12 @@ def actualizar_estado(
     db: Session = Depends(get_db)
 ):
     return actualizar_estado_controller(db, pedidoId, body)
+
+
+@router.patch("/pedidos/{pedidoId}/asignar-repartidor")
+def asignar_repartidor(
+    pedidoId: int,
+    body: AsignarRepartidorRequest,
+    db: Session = Depends(get_db)
+):
+    return asignar_repartidor_controller(db, pedidoId, body)

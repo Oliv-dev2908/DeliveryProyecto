@@ -4,7 +4,9 @@ from services.pedido_service import (
     obtener_pedidos_cliente,
     obtener_pedido,
     obtener_pedidos_repartidor,
-    actualizar_estado_pedido
+    actualizar_estado_pedido,
+    obtener_pedidos_sin_repartidor,
+    asignar_repartidor
 )
 
 
@@ -60,3 +62,10 @@ def actualizar_estado_controller(db: Session, pedido_id, body):
         "success": True,
         "data": pedido
     }
+
+
+def pedidos_sin_repartidor_controller(db):
+    return obtener_pedidos_sin_repartidor(db)
+
+def asignar_repartidor_controller(db, pedido_id, body):
+    return asignar_repartidor(db, pedido_id, body.repartidor_id)

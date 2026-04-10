@@ -61,3 +61,27 @@ def actualizar_estado_pedido(db: Session, pedido_id: int, estado: str):
     db.refresh(pedido)
 
     return pedido
+
+def obtener_pedidos_sin_repartidor(db: Session):
+    return db.query(Pedido).filter(
+        Pedido.repartidor_id == None
+    ).order_by(Pedido.created_at.desc()).all()
+
+
+def asignar_repartidor(db: Session, pedido_id: int, repartidor_id: int):
+
+    pedido = db.query(Pedido).filter(
+        Pedido.id == pedido_id
+    ).first()
+
+    if not pedido:
+        return None
+
+    pedido.repartidor_id = repartidor_id
+    pedido.estado = "asignado"
+    pedido.updated_at = datetime.now()
+
+    db.commit()
+    db.refresh(pedido)
+
+    return pedido
