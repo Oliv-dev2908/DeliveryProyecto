@@ -11,8 +11,9 @@ from controllers.pedido_controller import (
     pedidos_repartidor_controller,
     actualizar_estado_controller,
     pedidos_sin_repartidor_controller,
-    asignar_repartidor_controller
-)
+    asignar_repartidor_controller,
+    pedidos_controller
+    )
 from schemas.pedido_schema import AsignarRepartidorRequest
 
 router = APIRouter()
@@ -21,6 +22,9 @@ router = APIRouter()
 def crear_pedido(request: CrearPedidoRequest, db: Session = Depends(get_db)):
     return crear_pedido_controller(db, request)
 
+@router.get("/pedidos")
+def pedidos_controller(db: Session = Depends(get_db)):
+    return pedidos_controller(db, clienteId)
 
 @router.get("/pedidos/cliente/{clienteId}")
 def pedidos_cliente(clienteId: int, db: Session = Depends(get_db)):
