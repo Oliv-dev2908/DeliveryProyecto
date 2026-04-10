@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  /* Paleta Univalle y Estilos Base */
+  :root {
+    --univalle-red: #A6192E; /* Rojo institucional aproximado */
+    --text-dark: #333333;
+    --bg-light: #F8F9FA;
+  }
+
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+  }
+
+  /* Contenedor de Diapositiva (Proporción 16:9 estándar moderna) */
+  .slide-container { 
+    width: 960px; 
+    height: 540px; 
+    background-color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Cabecera Institucional */
+  .univalle-header { 
+    background-color: var(--univalle-red); 
+    color: white; 
+    padding: 15px 30px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+  }
+
+  .header-text {
+    text-align: right;
+  }
+
+  .header-text h2 { margin: 0; font-size: 18px; letter-spacing: 1px; }
+  .header-text p { margin: 5px 0 0 0; font-size: 12px; opacity: 0.9; }
+
+  /* Cuerpos de contenido */
+  .content-body { 
+    padding: 40px 60px; 
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Estilos específicos - Carátula */
+  .title-main { 
+    font-size: 26px; 
+    color: var(--univalle-red); 
+    font-weight: bold; 
+    text-align: center;
+    line-height: 1.3;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+
+  .title-sub {
+    font-size: 18px;
+    color: var(--text-dark);
+    text-align: center;
+    font-weight: normal;
+    margin-bottom: 30px;
+  }
+
+  .author-info { 
+    font-size: 16px; 
+    line-height: 1.6;
+    margin-top: 20px;
+    border-left: 4px solid var(--univalle-red);
+    padding-left: 20px;
+    align-self: center;
+  }
+
+  .footer-date {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+  }
+
+  /* Estilos específicos - Problemática */
+  .section-title {
+    font-size: 28px;
+    color: var(--univalle-red);
+    border-bottom: 2px solid var(--univalle-red);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    margin-top: 0;
+  }
+
+  .problem-grid {
+    display: flex;
+    gap: 30px;
+  }
+
+  .problem-box {
+    background-color: var(--bg-light);
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    border-top: 4px solid var(--univalle-red);
+  }
+
+  .problem-box h4 {
+    margin-top: 0;
+    color: var(--univalle-red);
+    font-size: 18px;
+  }
+
+  .problem-box ul {
+    padding-left: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-dark);
+    margin-bottom: 0;
+  }
+  
+  .problem-box li {
+    margin-bottom: 10px;
+  }
+
+  .core-question {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #ffebee;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--univalle-red);
+  }
+</style>
+</head>
+<body>
+
+  <div class="slide-container">
+    <div class="univalle-header">
+      <div style="width: 60px; height: 60px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #A6192E; font-weight: bold; font-size: 10px;">LOGO</div>
+      <div class="header-text">
+        <h2>UNIVERSIDAD PRIVADA DEL VALLE</h2>
+        <p>Facultad de Informática y Electrónica<br>Licenciatura en Ingeniería de Sistemas Informáticos</p>
+      </div>
+    </div>
+    
+    <div class="content-body">
+      <div class="title-main">
+        SISTEMA WEB PARA LA OPTIMIZACIÓN EN LA EVALUACIÓN DE TAREAS DE ÁLGEBRA EN ECUACIONES DE PRIMER GRADO MANUSCRITAS USANDO AGENTES INTELIGENTES
+      </div>
+      <div class="title-sub">
+        CASO: COLEGIO PARTICULAR SAN LUIS DE GONZAGA "B"
+      </div>
+      
+      <div class="author-info">
+        <strong>Postulante:</strong> Oliver Jorge Mamani Caro<br>
+        <strong>Tutor:</strong> Ing. Gonzalo Alarcon Roldan
+      </div>
+      
+      <div class="footer-date">
+        La Paz - Bolivia 2026
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-container">
+    <div class="content-body" style="padding-top: 30px;">
+      <h3 class="section-title">Planteamiento del Problema</h3>
+      
+      <div class="problem-grid">
+        <div class="problem-box">
+          <h4>Causas Operativas</h4>
+          <ul>
+            <li><strong>Revisión secuencial manual:</strong> Evaluación línea por línea de la caligrafía variable de ~150 estudiantes.</li>
+            <li><strong>Desgaste docente:</strong> Fatiga visual y cognitiva al auditar procedimientos (ley de signos, transposición).</li>
+          </ul>
+        </div>
+        <div class="problem-box">
+          <h4>Impacto en el Aula</h4>
+          <ul>
+            <li><strong>Cuello de botella:</strong> Retraso sustancial en los tiempos de calificación.</li>
+            <li><strong>Falta de retroalimentación oportuna:</strong> Los alumnos pierden la oportunidad de corregir errores antes de los exámenes.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="core-question">
+        ¿Cómo optimizar el tiempo y precisión de evaluación de tareas de álgebra manuscritas en estudiantes de 1ro y 2do de secundaria en el colegio San Luis de Gonzaga "B"?
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
