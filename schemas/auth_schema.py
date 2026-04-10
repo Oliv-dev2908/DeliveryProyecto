@@ -5,4 +5,5 @@ class LoginRequest(BaseModel):
     password: str
 
 class TokenFCMRequest(BaseModel):
+    user_id: int
     fcm_token: str
