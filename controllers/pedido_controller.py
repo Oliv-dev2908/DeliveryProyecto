@@ -78,12 +78,9 @@ def asignar_repartidor_controller(db: Session, pedido_id, body):
         "data": pedido
     }
  
-def pedidos_controller(db):
+def pedidos_controller(db: Session):
     pedidos = obtener_pedidos(db)
-    return {
-        "success": True,
-        "data": pedidos
-    }
+    return {"success": True, "data": pedidos}
  
 def pedidos_cliente_controller(db: Session, cliente_id):
     pedidos = obtener_pedidos_cliente(db, cliente_id)
