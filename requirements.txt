@@ -27,3 +27,7 @@ starlette==1.0.0
 typing-inspection==0.4.2
 typing_extensions==4.15.0
 uvicorn==0.42.0
+#NEW INTEGRATION FOR FIREBASE
+firebase-admin==6.5.0
+google-cloud-core==2.4.1
+google-api-core==2.17.1
