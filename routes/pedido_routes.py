@@ -23,7 +23,7 @@ def crear_pedido(request: CrearPedidoRequest, db: Session = Depends(get_db)):
     return crear_pedido_controller(db, request)
 
 @router.get("/pedidos")
-def listar_pedidos(db: Session = Depends(get_db)):
+def pedidos_controller(db: Session = Depends(get_db)):
     return pedidos_controller(db)
 
 @router.get("/pedidos/cliente/{clienteId}")
