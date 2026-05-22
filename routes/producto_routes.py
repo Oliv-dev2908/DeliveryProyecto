@@ -46,7 +46,7 @@ def eliminar(id: int, db: Session = Depends(get_db)):
 def obtener_mas_vendidos(db: Session = Depends(get_db)):
     return service.get_top_mas_vendidos(db)
 
-@router.get("   ", response_model=list[schema.ProductoReporteVentas])
+@router.get("/reportes/menos-vendidos", response_model=list[schema.ProductoReporteVentas])
 def obtener_menos_vendidos(db: Session = Depends(get_db)):
     return service.get_top_menos_vendidos(db)
 
