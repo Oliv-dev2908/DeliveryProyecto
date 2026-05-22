@@ -5,7 +5,17 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 
 def predecir_ventas_producto(db: Session, producto_id: int, meses_a_predecir: int = 3):
-    # Generamos el calendario de 4 meses (el actual y los 3 anteriores)
+    # 1. Obtenemos el precio unitario del producto para calcular el ingreso monetario
+    precio_query = text("SELECT precio_unitario FROM productos WHERE id = :producto_id")
+    precio_resultado = db.execute(precio_query, {"producto_id": producto_id}).scalar()
+    
+    # Si el producto no existe, cortamos la ejecución
+    if precio_resultado is None:
+        return {"error": f"No se encontró el producto con ID {producto_id}."}
+        
+    precio_unitario = float(precio_resultado)
+
+    # 2. Generamos el calendario de 4 meses (el actual y los 3 anteriores)
     query = text("""
         WITH meses AS (
             SELECT generate_series(
@@ -55,11 +65,16 @@ def predecir_ventas_producto(db: Session, producto_id: int, meses_a_predecir: in
     # Convertimos el numpy array a una lista normal de Python
     ventas_pasadas = y_historico.tolist()
 
+    # 3. Calculamos la ganancia multiplicando la predicción por el precio
+    ganancia_estimada = [round(cantidad * precio_unitario, 2) for cantidad in ventas_proyectadas]
+
     return {
         "producto_id": producto_id,
+        "precio_unitario_actual": precio_unitario,
         "historico_meses_analizados": len(resultados),
-        "ventas_historicas": ventas_pasadas, # <-- Aquí se devuelven los meses analizados
+        "ventas_historicas_cantidades": ventas_pasadas, 
         "tendencia": "creciente" if modelo.coef_[0] > 0 else "decreciente",
         "coeficiente_crecimiento": round(modelo.coef_[0], 2),
-        "prediccion_proximos_meses": ventas_proyectadas
+        "prediccion_proximos_meses_cantidades": ventas_proyectadas,
+        "prediccion_proximos_meses_ganancias": ganancia_estimada # <-- Aquí agregamos el dato financiero
     }
