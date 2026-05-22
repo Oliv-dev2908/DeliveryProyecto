@@ -1,6 +1,11 @@
 from pydantic import BaseModel
 from typing import Optional, List
 
+
+
+class ItemPedidoRequest(BaseModel):
+    producto_id: int
+    cantidad: int
 class CrearPedidoRequest(BaseModel):
 
     cliente_id: int
@@ -11,11 +16,6 @@ class CrearPedidoRequest(BaseModel):
     total: float
     notas: Optional[str]
     detalles: List[ItemPedidoRequest]
-
-class ItemPedidoRequest(BaseModel):
-    producto_id: int
-    cantidad: int
-
 
 class PedidoResponse(BaseModel):
 
