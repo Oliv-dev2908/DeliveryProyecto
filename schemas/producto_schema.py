@@ -21,3 +21,9 @@ class ProductoResponse(ProductoBase):
 
     class Config:
         from_attributes = True
+        
+class ProductoReporteVentas(ProductoResponse):
+    total_vendido: int
+
+class ProductoReporteReabastecimiento(ProductoResponse):
+    proporcion: float

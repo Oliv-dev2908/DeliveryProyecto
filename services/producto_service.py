@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from models.producto_model import Producto
+from sqlalchemy import text
 
 def get_productos(db: Session):
     return db.query(Producto).all()
@@ -42,3 +43,14 @@ def delete_producto_logic(db: Session, producto_id: int):
     producto.activo = 0
     db.commit()
     return producto
+def get_top_mas_vendidos(db: Session):
+    query = text("SELECT * FROM fn_top_5_mas_vendidos();")
+    return db.execute(query).mappings().all()
+
+def get_top_menos_vendidos(db: Session):
+    query = text("SELECT * FROM fn_top_5_menos_vendidos();")
+    return db.execute(query).mappings().all()
+
+def get_productos_reabastecimiento(db: Session):
+    query = text("SELECT * FROM fn_productos_para_reabastecer();")
+    return db.execute(query).mappings().all()

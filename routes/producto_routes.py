@@ -40,3 +40,21 @@ def eliminar(id: int, db: Session = Depends(get_db)):
 @router.delete("logic/{id}")
 def eliminar(id: int, db: Session = Depends(get_db)):
     return service.delete_producto_logic(db, id)
+
+
+@router.get("/reportes/mas-vendidos", response_model=list[schema.ProductoReporteVentas])
+def obtener_mas_vendidos(db: Session = Depends(get_db)):
+    return service.get_top_mas_vendidos(db)
+
+@router.get("/reportes/menos-vendidos", response_model=list[schema.ProductoReporteVentas])
+def obtener_menos_vendidos(db: Session = Depends(get_db)):
+    return service.get_top_menos_vendidos(db)
+
+@router.get("/reportes/reabastecimiento", response_model=list[schema.ProductoReporteReabastecimiento])
+def obtener_reabastecimiento(db: Session = Depends(get_db)):
+    return service.get_productos_reabastecimiento(db)
+
+# Tu ruta original se queda igual, pero debajo de los reportes
+@router.get("/{id}", response_model=schema.ProductoResponse)
+def obtener(id: int, db: Session = Depends(get_db)):
+    return service.get_producto(db, id)
