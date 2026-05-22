@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 
 class CrearPedidoRequest(BaseModel):
 
@@ -10,6 +10,11 @@ class CrearPedidoRequest(BaseModel):
     referencia: Optional[str]
     total: float
     notas: Optional[str]
+    detalles: List[ItemPedidoRequest]
+
+class ItemPedidoRequest(BaseModel):
+    producto_id: int
+    cantidad: int
 
 
 class PedidoResponse(BaseModel):

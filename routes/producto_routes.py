@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends
+import traceback
+
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from config.database import get_db
 import services.producto_service as service
@@ -8,7 +10,16 @@ router = APIRouter(prefix="/productos", tags=["Productos"])
 
 @router.get("/", response_model=list[schema.ProductoResponse])
 def listar(db: Session = Depends(get_db)):
-    return service.get_productos(db)
+    try:
+        # 2. Intentamos hacer la consulta
+        productos = service.get_productos(db)
+        return productos
+    except Exception as e:
+        # 3. Imprimimos el error exacto en la consola de Uvicorn
+        print("🔥 ERROR EXACTO:")
+        traceback.print_exc()
+        # 4. Devolvemos el error a la pantalla (Postman/Android/Navegador)
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.get("/{id}", response_model=schema.ProductoResponse)
 def obtener(id: int, db: Session = Depends(get_db)):

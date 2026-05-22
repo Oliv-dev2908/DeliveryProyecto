@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from models.user_model import User
 from services.notification_service import NotificationService
 from firebase_admin import messaging
+from schemas.pedido_schema import CrearPedidoRequest
 from services.pedido_service import (
     crear_pedido,
     obtener_pedidos_cliente,
@@ -14,24 +15,23 @@ from services.pedido_service import (
 )
 
  
-def crear_pedido_controller(db: Session, request):
+def crear_pedido_controller(db: Session, request: CrearPedidoRequest):
     pedido = crear_pedido(db, request)
+    
     mensaje = messaging.Message(
-            notification=messaging.Notification(
-                title="🛠️ ¡Nuevo Pedido Disponible!",
-                body="Hay un pedido esperando en la ferretería. ¡Aceptalo ahora!"
-            ),
-            topic="pedidos_disponibles"
-        )
- 
-    # 3. Enviar
+        notification=messaging.Notification(
+            title="🛠️ ¡Nuevo Pedido Disponible!",
+            body="Hay un pedido esperando en la ferretería. ¡Acéptalo ahora!"
+        ),
+        topic="pedidos_disponibles"
+    )
+
     try:
         response = messaging.send(mensaje)
-        print(f"✅ ÉXITO: Notificación enviada correctamente.")
-        print(f"ID del mensaje: {response}")
+        print(f"✅ ÉXITO: Notificación enviada correctamente. ID: {response}")
     except Exception as e:
-        print(f"❌ ERROR al enviar: {e}")
- 
+        print(f"❌ ERROR al enviar notificación: {e}")
+
     return {
         "success": True,
         "data": pedido
